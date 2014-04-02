@@ -52,3 +52,7 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+.vagrant/
+package-dist/
+post-install.sh
+post-uninstall.sh
