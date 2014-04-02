@@ -1,0 +1,13 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:/usr/local/nginx/sbin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:$PATH"
+eval "$(pyenv init -)"
+
+export WORKON_HOME=$HOME/.virtualenvs
+pyenv virtualenvwrapper
