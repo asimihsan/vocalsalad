@@ -96,7 +96,6 @@ rpm:
 	echo "$$AFTER_REMOVE_SH" > /tmp/after-remove.sh
 	rm -f *.rpm
 	source /etc/os-release; fpm -s dir -t rpm -n '$(PROJECT)' \
-		--package-name-suffix "$$ID$$VERSION_ID" \
 		--version $(VERSION) --iteration $(ITERATION) --epoch 0 \
 		-C $(ROOT) --python-bin $(PYTHON_BIN) \
 		--directories=$(ROOT) \
@@ -106,6 +105,7 @@ rpm:
 	    --after-remove /tmp/after-remove.sh \
 	    --architecture native --depends python \
 	    --maintainer $(MAINTAINER) --url $(URL) \
+	    --package "$(PROJECT)-$(VERSION)-$(ITERATION).$$ID$$VERSION_ID.$(shell uname -i).rpm" \
 	    $(ROOT)
 	mv *.rpm /vagrant/package-dist/
 	rm -rf $(ROOT)
