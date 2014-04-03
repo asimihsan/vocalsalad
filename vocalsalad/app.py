@@ -1,10 +1,10 @@
 import tornado.web
 
 
-class MainHandler(tornado.web.RequestHandler):
+class PingHandler(tornado.web.RequestHandler):
     def get(self):
-        self.write("Hello, world\n")
+        self.write("pong\n")
 
 application = tornado.web.Application([
-    (r"/", MainHandler),
+    (r"/ping", PingHandler),
 ])
