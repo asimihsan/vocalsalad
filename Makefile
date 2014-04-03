@@ -1,5 +1,5 @@
 VERSION = 0.0.1
-ITERATION = 5
+ITERATION = 6
 
 MAINTAINER = asim.ihsan@gmail.com
 URL = https://github.com/asimihsan/vocalsalad
@@ -11,6 +11,11 @@ ROOT = /opt/$(PROJECT)
 define BEFORE_INSTALL_SH
 #!/usr/bin/env bash
 set -e
+if [ "$$1" = "2" ]; then
+	# Perform whatever maintenance must occur before the upgrade begins
+	echo "BEFORE_INSTALL: This is an upgrade. Stop the service."
+	systemctl stop $(PROJECT).service
+fi
 endef
 export BEFORE_INSTALL_SH
 
