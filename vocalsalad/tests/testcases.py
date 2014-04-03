@@ -1,3 +1,4 @@
+import json
 import multiprocessing
 import socket
 import time
@@ -76,5 +77,14 @@ class LiveServerTestCase(unittest.TestCase):
         if params is None:
             params = {}
         request = requests.get(uri, params=params)
+        request.raise_for_status()
+        return request
+
+    @classmethod
+    def post(cls, path, data=None):
+        uri = cls.get_live_server_url() + path
+        if data is None:
+            data = {}
+        request = requests.get(uri, data=json.dumps(data))
         request.raise_for_status()
         return request
