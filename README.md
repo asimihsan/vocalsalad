@@ -1,7 +1,9 @@
 # vocalsalad
 
 Run long-running tasks on remote machines, and gather file-based
-artifacts
+artifacts.
+
+Supports CPython 2.6, 2.7, 3.2, 3.3, and 3.4, and PyPy 2.2.
 
 ## Running tests
 
