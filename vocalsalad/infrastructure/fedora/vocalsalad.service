@@ -1,0 +1,27 @@
+[Unit]
+Description=vocalsalad service
+After=network.target
+
+[Service]
+Type=simple
+
+# Commands with their arguments that are executed when this service is started.
+# The first argument must be an absolute path name.
+ExecStart=/opt/vocalsalad/bin/vocalsalad
+
+# Controls where file descriptor 1 (STDOUT) and file descriptor 2 (STDERR) of
+# the executed processes is connected to. null pipes output to /dev/null.
+StandardOutput=journal
+StandardError=journal
+
+# Configures whether the service shall be restarted when the service process
+# exits is killed, or a timeout is reached.  If set to always the service will
+# be restarted regardless whether it exited cleanly or not, got terminated
+# abnormally by a signal or hit a timeout.
+Restart=always
+
+# Set both TimeoutStartSec and TimeoutStopSec to 10.
+TimeoutSec=10
+
+[Install]
+WantedBy=multi-user.target
