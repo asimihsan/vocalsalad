@@ -1,9 +1,6 @@
 import tornado.web
 
-
-class PingHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.write("pong\n")
+from .handlers.ping import PingHandler
 
 application = tornado.web.Application([
     (r"/ping", PingHandler),
