@@ -13,11 +13,7 @@ File {
 include development_tools
 include firewall
 include openssl
-python { 'vagrant' :
-    user => 'vagrant',
-    home => '/home/vagrant',
-}
-include python_source
+include python
 user_environment { 'vagrant':
     user => 'vagrant',
     group => 'vagrant',

@@ -29,7 +29,7 @@ def read(fname):
 tests_require = [
     'tox==1.7.1',
     'mock==1.0.1',
-    'nose==1.3.1'
+    'nose==1.3.1',
 ],
 
 install_requires = [
