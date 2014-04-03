@@ -27,6 +27,7 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 tests_require = [
+    'coverage==3.7.1',
     'flake8==2.1.0',
     'mock==1.0.1',
     'nose==1.3.1',
