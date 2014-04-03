@@ -8,7 +8,7 @@ env:
     - "TOX_ENV=py33"
     - "TOX_ENV=pypy"
 install:
-    - "pip install tox"
+    - "pip install coverage coveralls nose tox"
 script:
     - "tox -e $TOX_ENV"
 after_success:
