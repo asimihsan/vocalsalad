@@ -1,5 +1,6 @@
 # vocalsalad
 
+[![Build Status](https://travis-ci.org/asimihsan/vocalsalad.svg?branch=master)](https://travis-ci.org/asimihsan/vocalsalad)
 [![Code Health](https://landscape.io/github/asimihsan/vocalsalad/master/landscape.png)](https://landscape.io/github/asimihsan/vocalsalad/master)
 [![Requirements Status](https://requires.io/github/asimihsan/vocalsalad/requirements.png?branch=master)](https://requires.io/github/asimihsan/vocalsalad/requirements/?branch=master)
 
