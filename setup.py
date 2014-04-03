@@ -27,9 +27,10 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 tests_require = [
-    'tox==1.7.1',
     'mock==1.0.1',
     'nose==1.3.1',
+    'requests==2.2.1',
+    'tox==1.7.1',
 ],
 
 install_requires = [
