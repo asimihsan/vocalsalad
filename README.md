@@ -1,5 +1,7 @@
 # vocalsalad
 
+[![Code Health](https://landscape.io/github/asimihsan/vocalsalad/master/landscape.png)](https://landscape.io/github/asimihsan/vocalsalad/master)
+
 [![Requirements Status](https://requires.io/github/asimihsan/vocalsalad/requirements.png?branch=master)](https://requires.io/github/asimihsan/vocalsalad/requirements/?branch=master)
 
 Run long-running tasks on remote machines, and gather file-based
