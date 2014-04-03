@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/asimihsan/vocalsalad.svg?branch=master)](https://travis-ci.org/asimihsan/vocalsalad)
 [![Code Health](https://landscape.io/github/asimihsan/vocalsalad/master/landscape.png)](https://landscape.io/github/asimihsan/vocalsalad/master)
+[![Coverage Status](https://coveralls.io/repos/asimihsan/vocalsalad/badge.png)](https://coveralls.io/r/asimihsan/vocalsalad)
 [![Requirements Status](https://requires.io/github/asimihsan/vocalsalad/requirements.png?branch=master)](https://requires.io/github/asimihsan/vocalsalad/requirements/?branch=master)
 
 Run long-running tasks on remote machines, and gather file-based
