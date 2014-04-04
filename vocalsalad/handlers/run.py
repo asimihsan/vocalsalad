@@ -1,6 +1,6 @@
-import tornado.web
+from .base import BaseHandler
 
 
-class RunHandler(tornado.web.RequestHandler):
+class RunHandler(BaseHandler):
     def get(self):
         self.write("pong\n")

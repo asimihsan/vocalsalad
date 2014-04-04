@@ -3,6 +3,7 @@ from __future__ import print_function
 import tornado.ioloop
 
 from vocalsalad.app import get_application
+import vocalsalad.settings  # NOQA
 
 
 class Server(object):
