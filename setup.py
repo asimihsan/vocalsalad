@@ -60,9 +60,7 @@ setup(
     license="MIT",
     long_description=read('README.md'),
     name="vocalsalad",
-    packages=[
-        "vocalsalad",
-    ],
+    package_dir={'': 'vocalsalad'},
     tests_require=tests_require,
     url="https://github.com/asimihsan/vocalsalad",
     version="0.0.1",
