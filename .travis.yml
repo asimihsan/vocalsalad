@@ -2,14 +2,18 @@ language: python
 python:
     - "2.7"
 env:
-    - "TOX_ENV=py26"
+    - "TOX_ENV=lint"
     - "TOX_ENV=py27"
+    - "TOX_ENV=py26"
+    - "TOX_ENV=pypy"
     - "TOX_ENV=py32"
     - "TOX_ENV=py33"
-    - "TOX_ENV=pypy"
 install:
     - "pip install coverage coveralls nose tox"
+before_script:
+    - "coverage erase"
 script:
-    - "tox -e $TOX_ENV"
+    - "tox -e $TOX_ENV -- `which nosetests`"
 after_success:
-    coveralls
+    - "tox -e coverage"
+    - coveralls

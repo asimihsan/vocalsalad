@@ -1,8 +1,24 @@
+#!/usr/bin/env python
+
 from __future__ import print_function
+
+import signal
 
 import tornado.ioloop
 
 from vocalsalad.app import get_application
+
+
+def handler(signum=None, frame=None):
+    try:
+        tornado.ioloop.IOLoop.instance().close(all_fds=True)
+    except ValueError:
+        pass
+    try:
+        tornado.ioloop.IOLoop.instance().stop()
+    except ValueError:
+        pass
+signal.signal(signal.SIGTERM, handler)
 
 
 class Server(object):
@@ -17,9 +33,7 @@ class Server(object):
         tornado.ioloop.IOLoop.instance().start()
 
     def stop(self):
-        tornado.ioloop.IOLoop.instance().close(all_fds=True)
-        tornado.ioloop.IOLoop.instance().stop()
-        print("after stopping")
+        handler()
 
 
 def main():
