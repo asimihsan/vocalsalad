@@ -57,6 +57,7 @@ if [ "$$1" = "0" ]; then
 		systemctl stop $(PROJECT).service
 		systemctl disable $(PROJECT).service
 		rm -f /etc/systemd/system/$(PROJECT).service
+		systemctl daemon-reload
 	fi;
 elif [ "$$1" = "1" ]; then
 	# Perform whatever maintenance must occur before the upgrade ends
