@@ -1,11 +1,14 @@
 import json
+import logging
 import multiprocessing
 import socket
+import sys
 import time
 import unittest
 
 import requests
 
+import vocalsalad.settings
 import vocalsalad.server
 
 
@@ -27,11 +30,15 @@ def find_free_ports(how_many=1):
     return results
 
 
-def live_server_process(host, port):
-    server = vocalsalad.server.Server(host, port)
+def live_server_process(host, port, **application_settings):
+    vocalsalad.settings.enable_console_logging()
+    sys.stderr = open('/tmp/foo.log', 'w', 0)
+    server = vocalsalad.server.Server(
+        host, port, **application_settings)
     try:
         server.start()
     finally:
+        sys.stdout.close()
         server.stop()
 
 
@@ -39,12 +46,16 @@ class LiveServerTestCase(unittest.TestCase):
     """Base TestCase to inherit from which will run an HTTP server in
     a background thread.
     """
+
     @classmethod
     def setUpClass(cls):
+        vocalsalad.settings.enable_console_logging()
+        cls.logger = logging.getLogger("vocalsalad.test.LiveServerTestCase")
         cls.host = '127.0.0.1'
         cls.port = find_free_ports(1)[0]
         cls.server_process = multiprocessing.Process(
-            target=live_server_process, args=(cls.host, cls.port))
+            target=live_server_process, args=(cls.host, cls.port),
+            kwargs={"debug": True})
         cls.server_process.daemon = True
         cls.server_process.start()
 
