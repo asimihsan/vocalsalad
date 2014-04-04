@@ -1,7 +1,7 @@
-import testcases
+from .testcases import LiveServerTestCase
 
 
-class AppRunTestCase(testcases.LiveServerTestCase):
+class AppRunTestCase(LiveServerTestCase):
     def test_run_only(self):
         """Start a command, do nothing else."""
 

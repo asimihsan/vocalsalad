@@ -1,7 +1,7 @@
-import testcases
+from .testcases import LiveServerTestCase
 
 
-class AppPingTestCase(testcases.LiveServerTestCase):
+class AppPingTestCase(LiveServerTestCase):
     """Just test that /ping works. This is a sanity test to make sure
     that the Tornado web server can run at all, and indeed that our
     test infrastructure is able to run it etc.
