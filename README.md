@@ -1,9 +1,12 @@
 # vocalsalad
 
+[![Latest version](https://pypip.in/v/vocalsalad/badge.png)](https://pypi.python.org/pypi/vocalsalad/)
 [![Build Status](https://travis-ci.org/asimihsan/vocalsalad.svg?branch=master)](https://travis-ci.org/asimihsan/vocalsalad)
 [![Code Health](https://landscape.io/github/asimihsan/vocalsalad/master/landscape.png)](https://landscape.io/github/asimihsan/vocalsalad/master)
 [![Coverage Status](https://coveralls.io/repos/asimihsan/vocalsalad/badge.png?branch=master)](https://coveralls.io/r/asimihsan/vocalsalad?branch=master)
 [![Requirements Status](https://requires.io/github/asimihsan/vocalsalad/requirements.png?branch=master)](https://requires.io/github/asimihsan/vocalsalad/requirements/?branch=master)
+[![License](https://pypip.in/license/vocalsalad/badge.png)](https://pypi.python.org/pypi/vocalsalad/)
+
 
 Run long-running tasks on remote machines, and gather file-based
 artifacts.
