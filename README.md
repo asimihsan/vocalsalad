@@ -7,9 +7,12 @@
 [![Requirements Status](https://requires.io/github/asimihsan/vocalsalad/requirements.png?branch=master)](https://requires.io/github/asimihsan/vocalsalad/requirements/?branch=master)
 [![License](https://pypip.in/license/vocalsalad/badge.png)](https://pypi.python.org/pypi/vocalsalad/)
 
-
-Run long-running tasks on remote machines, and gather file-based
+> Run long-running tasks on remote machines, and gather file-based
 artifacts.
+
+## Installation
+
+TODO
 
 Supports CPython 2.6, 2.7, 3.2, 3.3, and 3.4, and PyPy 2.2.
 
