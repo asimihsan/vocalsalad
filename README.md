@@ -50,3 +50,7 @@ make rpm
 ```
 
 You'll find the RPM in `package-dist`.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/asimihsan/vocalsalad/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
