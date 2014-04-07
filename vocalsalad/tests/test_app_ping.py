@@ -1,3 +1,5 @@
+from nose.tools import eq_
+
 from .testcases import LiveServerTestCase
 
 
@@ -10,7 +12,7 @@ class AppPingTestCase(LiveServerTestCase):
     to do with repeated requests.
     """
     def _do_ping(self):
-        self.assertEqual("pong\n", self.get("/ping").text)
+        eq_("pong\n", self.get("/ping").text)
 
     def test_ping(self):
         """Just send a ping, expect pong. #1.
