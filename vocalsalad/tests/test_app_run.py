@@ -1,3 +1,5 @@
+from nose.tools import eq_
+
 from .testcases import LiveServerTestCase
 
 
@@ -8,7 +10,7 @@ class AppRunTestCase(LiveServerTestCase):
         })
 
     def _get_run_stdout(self, ident):
-        return self.get('/api/v1/run/%s/get_stdout' % ident)
+        return self.get('/api/v1/run/%s/get_stdout' % ident).text
 
     def test_run_only(self):
         """Start a command, do nothing else."""
@@ -19,11 +21,11 @@ class AppRunTestCase(LiveServerTestCase):
         """Start a command, check there's a command_id in JSON response.
         """
         data = self._start_run_echo_testing().json()
-        self.assertIn("id", data)
+        self.assertTrue("id" in data, "'id' not in %s" % data)
 
     def test_run_then_get_stdout(self):
         """Start a command, get its stdout.
         """
         data = self._start_run_echo_testing().json()
         stdout = self._get_run_stdout(data["id"])
-        self.assertEqual("testing\n", stdout)
+        eq_("testing\n", stdout)
