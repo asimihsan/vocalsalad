@@ -3,11 +3,13 @@ import logging
 import multiprocessing
 import socket
 import sys
+import threading
 import time
 import unittest
 
 import requests
 
+import vocalsalad.log
 import vocalsalad.settings
 import vocalsalad.server
 
@@ -30,9 +32,9 @@ def find_free_ports(how_many=1):
     return results
 
 
-def live_server_process(host, port, **application_settings):
-    vocalsalad.settings.enable_console_logging()
-    sys.stderr = open('/tmp/foo.log', 'w', 0)
+def live_server_process(host, port, log_queue, **application_settings):
+    vocalsalad.log.disable_existing_logging()
+    vocalsalad.log.worker_configurer(log_queue)
     server = vocalsalad.server.Server(
         host, port, **application_settings)
     try:
@@ -48,13 +50,22 @@ class LiveServerTestCase(unittest.TestCase):
     """
 
     @classmethod
+    def _start_log_listener(cls):
+        cls.log_queue = multiprocessing.Queue(-1)
+        cls.log_listener = threading.Thread(
+            target=vocalsalad.log.listener_thread,
+            args=(cls.log_queue, vocalsalad.log.null_configurer))
+        cls.log_listener.start()
+
+    @classmethod
     def setUpClass(cls):
-        vocalsalad.settings.enable_console_logging()
+        vocalsalad.log.disable_existing_logging()
+        cls._start_log_listener()
         cls.logger = logging.getLogger("vocalsalad.test.LiveServerTestCase")
         cls.host = '127.0.0.1'
         cls.port = find_free_ports(1)[0]
         cls.server_process = multiprocessing.Process(
-            target=live_server_process, args=(cls.host, cls.port),
+            target=live_server_process, args=(cls.host, cls.port, cls.log_queue),
             kwargs={"debug": True})
         cls.server_process.daemon = True
         cls.server_process.start()
@@ -77,6 +88,8 @@ class LiveServerTestCase(unittest.TestCase):
     def tearDownClass(cls):
         cls.server_process.terminate()
         cls.server_process.join()
+        cls.log_queue.put(None)
+        cls.log_listener.join()
 
     @classmethod
     def get_live_server_url(cls):
