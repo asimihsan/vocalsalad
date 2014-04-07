@@ -2,7 +2,6 @@ import json
 import logging
 import multiprocessing
 import socket
-import sys
 import threading
 import time
 import unittest
@@ -40,7 +39,6 @@ def live_server_process(host, port, log_queue, **application_settings):
     try:
         server.start()
     finally:
-        sys.stdout.close()
         server.stop()
 
 
@@ -52,9 +50,12 @@ class LiveServerTestCase(unittest.TestCase):
     @classmethod
     def _start_log_listener(cls):
         cls.log_queue = multiprocessing.Queue(-1)
+        cls.is_log_listener_running = threading.Event()
+        cls.is_log_listener_running.set()
         cls.log_listener = threading.Thread(
             target=vocalsalad.log.listener_thread,
-            args=(cls.log_queue, vocalsalad.log.null_configurer))
+            args=(cls.log_queue, cls.is_log_listener_running,
+                  vocalsalad.log.null_configurer))
         cls.log_listener.start()
 
     @classmethod
@@ -88,7 +89,7 @@ class LiveServerTestCase(unittest.TestCase):
     def tearDownClass(cls):
         cls.server_process.terminate()
         cls.server_process.join()
-        cls.log_queue.put(None)
+        cls.is_log_listener_running.clear()
         cls.log_listener.join()
 
     @classmethod
@@ -96,19 +97,19 @@ class LiveServerTestCase(unittest.TestCase):
         return 'http://%s:%s' % (cls.host, cls.port)
 
     @classmethod
-    def get(cls, path, params=None):
+    def get(cls, path, params=None, timeout=0.5):
         uri = cls.get_live_server_url() + path
         if params is None:
             params = {}
-        request = requests.get(uri, params=params)
+        request = requests.get(uri, params=params, timeout=timeout)
         request.raise_for_status()
         return request
 
     @classmethod
-    def post(cls, path, data=None):
+    def post(cls, path, data=None, timeout=0.5):
         uri = cls.get_live_server_url() + path
         if data is None:
             data = {}
-        request = requests.get(uri, data=json.dumps(data))
+        request = requests.post(uri, data=json.dumps(data), timeout=timeout)
         request.raise_for_status()
         return request

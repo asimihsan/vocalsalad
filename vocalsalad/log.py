@@ -1,4 +1,5 @@
 import logging
+from six.moves import queue
 import sys
 import traceback
 
@@ -110,13 +111,14 @@ def null_configurer():
     pass
 
 
-def listener_thread(queue, configurer):
+def listener_thread(log_queue, is_running, configurer, poll_interval=1.0):
     configurer()
-    while True:
+    while is_running.is_set():
         try:
-            record = queue.get()
-            if record is None:  # We send this as a sentinel to tell the listener to quit.
-                break
+            try:
+                record = log_queue.get(True, poll_interval)
+            except queue.Empty:
+                continue
             logger = logging.getLogger(record.name)
             logger.handle(record)  # No level or filter logic applied - just do it!
         except Exception:
