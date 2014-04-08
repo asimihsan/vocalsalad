@@ -31,7 +31,7 @@ def find_free_ports(how_many=1):
     return results
 
 
-def live_server_process(host, port, log_queue, **application_settings):
+def live_server_thread(host, port, log_queue, **application_settings):
     vocalsalad.log.disable_existing_logging()
     vocalsalad.log.worker_configurer(log_queue)
     server = vocalsalad.server.Server(
@@ -65,11 +65,11 @@ class LiveServerTestCase(unittest.TestCase):
         cls.logger = logging.getLogger("vocalsalad.test.LiveServerTestCase")
         cls.host = '127.0.0.1'
         cls.port = find_free_ports(1)[0]
-        cls.server_process = multiprocessing.Process(
-            target=live_server_process, args=(cls.host, cls.port, cls.log_queue),
+        cls.server_thread = threading.Thread(
+            target=live_server_thread, args=(cls.host, cls.port, cls.log_queue),
             kwargs={"debug": True})
-        cls.server_process.daemon = True
-        cls.server_process.start()
+        cls.server_thread.daemon = True
+        cls.server_thread.start()
 
         # The first time the tornado server comes up after already
         # being up sometimes we get a TCP connection error. Let's catch
@@ -87,8 +87,6 @@ class LiveServerTestCase(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        cls.server_process.terminate()
-        cls.server_process.join()
         cls.is_log_listener_running.clear()
         cls.log_listener.join()
 
