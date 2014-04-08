@@ -28,7 +28,7 @@ def disable_existing_logging():
         logger.handlers = []
 
 
-class QueueHandler(logging.Handler):
+class QueueHandler(logging.Handler):  # pragma: nocover
     """
     This handler sends events to a queue. Typically, it would be used
     together with a multiprocessing Queue to centralise logging to file
@@ -94,7 +94,7 @@ class QueueHandler(logging.Handler):
             self.handleError(record)
 
 
-def listener_configurer():
+def listener_configurer():  # pragma: nocover
     root = logging.getLogger()
     h = logging.StreamHandler()
     f = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
@@ -102,7 +102,7 @@ def listener_configurer():
     root.addHandler(h)
 
 
-def null_configurer():
+def null_configurer():  # pragma: nocover
     """nosetests captures logs directly from the logging handler. Hence
     when running tests the listener thread does not need to have
     any handlers configured. If you need logs to be sent to e.g.
@@ -111,7 +111,7 @@ def null_configurer():
     pass
 
 
-def listener_thread(log_queue, is_running, configurer, poll_interval=1.0):
+def listener_thread(log_queue, is_running, configurer, poll_interval=1.0):  # pragma: nocover
     configurer()
     while is_running.is_set():
         try:
@@ -126,7 +126,7 @@ def listener_thread(log_queue, is_running, configurer, poll_interval=1.0):
             traceback.print_exc(file=sys.stderr)
 
 
-def worker_configurer(queue):
+def worker_configurer(queue):  # pragma: nocover
     """The worker configuration is done at the start of the worker
     process run. Note that on Windows you can't rely on fork semantics,
     so each process will run the logging configuration code when it
