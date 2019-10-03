@@ -31,7 +31,7 @@ tests_require = [
     'flake8==2.1.0',
     'mock==1.0.1',
     'nose==1.3.1',
-    'requests==2.2.1',
+    'requests==2.20.0',
     'tox==1.7.1',
 ],
 
