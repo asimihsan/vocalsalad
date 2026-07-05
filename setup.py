@@ -36,8 +36,8 @@ tests_require = [
 ],
 
 install_requires = [
-    'six==1.6.1',
-    'tornado==3.2.1',
+    'six==1.10.0',
+    'tornado==4.4.2',
 ]
 
 setup(
